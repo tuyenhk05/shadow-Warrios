@@ -1,0 +1,270 @@
+﻿/* src/components/PostDetail.css */
+
+/* --- TỔNG THỂ --- */
+
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 15%;
+    background-image: url('../../assets/images/background-content2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.loading {
+    color: white;
+    text-align: center;
+    padding: 50px;
+    font-size: 1.5rem;
+}
+
+/* --- LAYOUT CHÍNH (2 CỘT) --- */
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    gap: 30px; /* Khoảng cách giữa 2 cột */
+    flex-grow: 1;
+}
+
+.main-content {
+    flex: 3; /* Cột chính chiếm 3 phần */
+    background-color: #252525;
+    padding: 25px;
+    border-top: 4px solid #ff6600; /* Đường kẻ màu cam */
+}
+
+.sidebar {
+    flex: 1; /* Cột phụ chiếm 1 phần */
+}
+
+/* --- NỘI DUNG CHÍNH --- */
+.main-content h1 {
+    color: #fff;
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.post-date {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.main-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.post-body p {
+    line-height: 1.6;
+    color: #ddd;
+}
+
+/* --- ĐIỀU HƯỚNG BÀI VIẾT --- */
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+}
+
+.nav-arrow.next {
+    transition: background-color 0.5s;
+    transform: rotate(270deg);
+}
+.nav-arrow.prev {
+    transition: background-color 0.5s;
+    transform: rotate(90deg);
+}
+.nav-arrow img:hover {
+    transform:scale(1.2);
+}
+
+/* --- SIDEBAR (LATEST NEWS) --- */
+.sidebar h2 {
+    color: #fff;
+    border-bottom: 3px solid #ff6600;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.news-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.news-item a {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #ccc;
+    transition: background-color 0.2s;
+    padding: 5px;
+}
+
+.news-item a:hover {
+    background-color: #333;
+}
+
+.news-thumb {
+    width: 100px;
+    height: 75px;
+    object-fit: cover;
+}
+
+.news-info h3 {
+    font-size: 0.9rem;
+    margin: 0 0 5px 0;
+    color: #fff;
+}
+
+.news-date {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+}
+
+/* --- FOOTER --- */
+.footer {
+    background-color: #111;
+    color: #777;
+    text-align: center;
+    padding: 30px;
+    margin-top: auto; /* Đẩy footer xuống dưới cùng */
+}
+
+.footer .social-icons {
+    margin-bottom: 20px; /* Thêm style cho icon */
+}
+
+.footer .footer-links {
+    margin-bottom: 20px;
+}
+
+.footer .footer-links a {
+    color: #aaa;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.footer .footer-links a:hover {
+    color: #ff6600;
+}
+
+.footer .app-stores {
+    margin-bottom: 20px;
+}
+
+.footer .app-stores img {
+    height: 40px;
+    margin: 0 5px;
+}
+
+.footer .copyright {
+    font-size: 0.8rem;
+}
+/* ========================================= */
+/* === ĐOẠN CODE REPONSIVE === */
+/* ========================================= */
+
+/* --- Dành cho Tablet (và mobile ngang) --- */
+/* (Khi màn hình từ 992px trở xuống) */
+@media (max-width: 992px) {
+    .container {
+        /* Chuyển layout flex từ hàng (row) sang cột (column) */
+        flex-direction: column;
+        /* Trên mobile, chúng ta không cần giới hạn 1200px nữa */
+        /* Hãy để nó chiếm 95% chiều rộng màn hình */
+        width: 95%;
+        margin: 20px auto; /* Giữ nó ở giữa */
+    }
+
+    .main-content,
+    .sidebar {
+        /* * Reset lại thuộc tính 'flex'. 
+         * 'flex: 3' và 'flex: 1' không còn ý nghĩa
+         * khi đã chuyển sang 'flex-direction: column'.
+        */
+        flex: 1 1 auto;
+        width: 100%; /* Đảm bảo cả 2 cột chiếm 100% chiều rộng */
+    }
+
+    .sidebar {
+        /* Thêm một khoảng cách bên trên để tách biệt
+           với nội dung chính ở trên nó */
+        margin-top: 30px;
+    }
+}
+
+/* --- Dành cho Điện thoại nhỏ --- */
+/* (Khi màn hình từ 576px trở xuống) */
+@media (max-width: 576px) {
+    .container {
+        width: 100%; /* Chiếm toàn bộ màn hình */
+        margin: 0;
+    }
+
+    .main-content {
+        padding: 15px; /* Giảm padding 2 bên cho vừa màn hình */
+        border-top: none; /* Bỏ viền cam trên mobile cho gọn */
+    }
+
+    .main-content h1 {
+        font-size: 1.6rem; /* Giảm cỡ chữ tiêu đề */
+    }
+
+    .post-navigation {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+
+    .nav-arrow {
+        font-size: 1.5rem; /* Thu nhỏ nút điều hướng */
+        padding: 8px 15px;
+    }
+
+    .sidebar {
+        padding: 0 15px; /* Căn lề cho sidebar */
+    }
+
+    /* --- Tin tức trong Sidebar --- */
+    .news-item a {
+        /* Stack ảnh và chữ trong sidebar trên mobile */
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .news-thumb {
+        /* Ảnh thumbnail chiếm 100% chiều rộng */
+        width: 100%;
+        height: 150px; /* Cho nó cao hơn một chút */
+        object-fit: cover;
+    }
+
+    .news-info {
+        margin-top: 10px; /* Khoảng cách giữa ảnh và chữ */
+    }
+
+    /* --- Footer --- */
+    .footer-links {
+        /* Stack các link trong footer */
+        flex-direction: column;
+    }
+
+    .footer-links a {
+        display: block; /* Mỗi link 1 hàng */
+        margin: 8px 0; /* Thêm khoảng cách dọc */
+    }
+
+    .app-stores img {
+        height: 35px; /* Thu nhỏ nút app stores */
+    }
+}

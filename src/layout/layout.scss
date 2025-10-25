@@ -1,0 +1,397 @@
+﻿/* --- 1. ĐỊNH NGHĨA FONT CUSTOM (TỪ FILE Quantify.ttf) --- */
+@font-face {
+    font-family: 'Quantify'; // Tên bạn đặt cho font
+    src: url('../assets/fonts/Quantify.ttf') format('truetype'); // Đường dẫn đến file
+    font-weight: 700; // Giả định đây là bản Bold (700)
+    font-style: normal;
+    
+}
+
+/* --- 2. BIẾN TOÀN CỤC --- */
+// (Sử dụng các biến bạn đã cung cấp)
+$header-height: 80px;
+$primary-color: #ffffff;
+$gold-color: #F0D040;
+$gold-gradient: linear-gradient(180deg, #F0D040, #C8801A);
+$silver-gradient: linear-gradient(180deg, #FFFFFF, #B0B0B0);
+$active-gradient: linear-gradient(90deg, #ff8c00, #f7ca18);
+$border-color: rgba(255, 255, 255, 0.2);
+$bg-dark: #000; // Tôn trọng lựa chọn của bạn
+$footer-bg: #1a1a1a;
+$footer-glow: rgba(200, 100, 0, 0.2);
+$footer-text-secondary: #8a8a8a;
+
+/* --- 3. RESET & BODY --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: $bg-dark;
+    color: $primary-color;
+    line-height: 1.6;
+}
+
+a {
+    color: $primary-color;
+    text-decoration: none;
+}
+
+/* --- 4. TÙY CHỈNH LAYOUT ANT DESIGN --- */
+.layout-container {
+    min-height: 100vh;
+}
+
+/* --- 5. HEADER (Style cho <Header> của Antd) --- */
+.ant-layout-header.layout-header {
+    // Ghi đè style mặc định
+    padding: 0 40px !important;
+    line-height: 1.5;
+    height: $header-height;
+    // Vị trí & Nền (Hiệu ứng kính mờ)
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
+    // Ghi đè nền của Antd, làm trong suốt và mờ
+    background: rgba(10, 30, 25, 0.3) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid $border-color;
+    // Hiệu ứng ẩn/hiện khi cuộn
+    transition: top 0.4s ease-in-out;
+
+    &.hidden {
+        top: -$header-height;
+    }
+    // Bố cục Flex
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // Nội dung Header
+    .logo {
+        span { // "Shadow Warriors:"
+            font-size: clamp(0.6rem,2vw,0.9rem);
+            color: transparent;
+            font-weight: 600;
+            display: block;
+            background-image: $silver-gradient;
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-align: center;
+            font-family: 'Quantify', sans-serif;
+        }
+
+        h1 { // "MONSTER SLAYER"
+            font-family: 'Quantify', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.1rem,2vw,1.5rem);
+            text-transform: uppercase;
+            color: transparent;
+            background-image: $gold-gradient;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 35px;
+
+        a {
+            font-size: clamp(0.7rem,1vw,1rem);
+            font-weight: 600;
+            padding: 10px 0;
+            position: relative;
+            transition: color 0.3s ease;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -17px; // (Giữ style của bạn)
+                left: 25%;
+                width: 50%;
+                height: 3px;
+                background: $active-gradient;
+                transform: scaleX(0);
+                transform-origin: center;
+                transition: transform 0.3s ease;
+            }
+
+            &:hover,
+            &.active {
+                color: $primary-color;
+
+                &::after {
+                    transform: scaleX(2); // (Giữ style của bạn)
+                }
+            }
+        }
+    }
+
+    .button-download {
+        button {
+            background: transparent;
+            border: 2px solid $primary-color;
+            color: $primary-color;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: clamp(0.7rem,1vw,0.9rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: $primary-color;
+                color: $bg-dark;
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            }
+        }
+    }
+    // --- BẮT ĐẦU THÊM MỚI ---
+    // Icon "hamburger" (mặc định ẩn)
+    .mobile-menu-icon {
+        display: none; // Mặc định ẩn trên desktop
+        font-size: 24px;
+        color: $primary-color;
+        cursor: pointer;
+    }
+    // --- KẾT THÚC THÊM MỚI ---
+}
+
+/* --- 6. MAIN (Style cho <Content> của Antd) --- */
+.ant-layout-content.layout-main {
+    flex: 1;
+    background: $bg-dark; // Đảm bảo dòng này có
+    min-height: 100vh;
+}
+
+/* --- 7. FOOTER (Style cho <Footer> của Antd) --- */
+.ant-layout-footer.layout-footer {
+    padding: 0;
+    background: $footer-bg;
+    color: $footer-text-secondary;
+    position: relative;
+    // (Giữ nguyên toàn bộ style footer của bạn)
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85%;
+        height: 100%;
+        background: radial-gradient(circle at bottom, rgba(200, 100, 0, 0.2), transparent 70%);
+        z-index: 0;
+    }
+
+    .footer-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 50px 20px;
+    }
+
+    .footer-socials {
+        display: flex;
+        gap: 20px;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #2a2a2a;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 20px;
+            transition: background 0.3s ease;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+
+            &:hover {
+                background: $primary-color;
+                color: #000;
+            }
+        }
+    }
+
+    .footer-logos {
+        display: flex;
+        align-items: flex-end;
+        gap: 25px;
+        color: #fff;
+
+        .ebiz-logo {
+            font-size: 1.3rem;
+            font-family: 'Nunito', sans-serif; // (Giữ style của bạn)
+        }
+
+        .game-logo {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: $footer-text-secondary;
+
+            span {
+                display: block;
+                line-height: 1.2;
+                font-family: 'Quantify', sans-serif; // (Giữ style của bạn)
+                &:last-child {
+                    font-family: 'Quantify', sans-serif;
+                    font-weight: 700;
+                    font-size: 1rem;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .footer-copyright {
+        font-size: 0.75rem;
+        color: $footer-text-secondary;
+        max-width: 600px;
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    .footer-legal {
+        display: flex;
+        gap: 30px;
+
+        a {
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: $gold-color;
+            }
+        }
+    }
+
+    .footer-stores {
+        display: flex;
+        gap: 15px;
+
+        a {
+            transition: opacity 0.3s ease;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        img {
+            height: 45px;
+
+            &[alt="Get it on Google Play"] {
+                height: 57px;
+                margin: -7px;
+            }
+        }
+
+        img[alt="Download on the App Store"] {
+            background: #000;
+            border-radius: 6px;
+            padding: 3px 0;
+        }
+    }
+}
+
+// --- 8. BẮT ĐẦU THÊM MỚI: STYLE CHO MENU DI ĐỘNG (DRAWER) ---
+.mobile-nav-drawer {
+    background:black!important;
+    .ant-drawer-content-wrapper {
+        background: $bg-dark; // Nền đen
+    }
+
+    .ant-drawer-header {
+        background: $bg-dark;
+        border-bottom: 1px solid $border-color;
+    }
+
+    .ant-drawer-title, .ant-drawer-close {
+        color: $primary-color; // Chữ/icon trắng
+    }
+
+    .ant-drawer-body {
+        padding: 24px;
+    }
+    // Style cho các link bên trong
+    .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        a, button {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: $primary-color;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+        }
+        // Style riêng cho button Download
+        button {
+            background: $active-gradient;
+            border: none;
+            color: $primary-color;
+            text-align: center;
+        }
+    }
+}
+
+
+// --- 9. BẮT ĐẦU THÊM MỚI: PHẦN RESPONSIVE ---
+// Đặt breakpoint (điểm gãy) cho di động
+$mobile-breakpoint: 768px;
+
+@media (max-width: $mobile-breakpoint) {
+
+    // 1. Header
+    .ant-layout-header.layout-header {
+        padding: 0 20px !important; // Giảm padding ngang
+        // Ẩn link và nút desktop
+        .nav-links, .button-download {
+            display: none;
+        }
+        // Hiện icon hamburger
+        .mobile-menu-icon {
+            display: block;
+        }
+    }
+
+    // 2. Main Content
+    .ant-layout-content.layout-main {
+    }
+
+    // 3. Footer
+    .ant-layout-footer.layout-footer {
+        .footer-content {
+            padding: 40px 20px; // Giảm padding
+        }
+        // Xếp chồng các link và store
+        .footer-legal, .footer-stores {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-stores img {
+            height: 45px; // Tăng nhẹ cho dễ bấm
+        }
+    }
+}

@@ -1,0 +1,1115 @@
+﻿// Biến màu (giả định từ layout.scss của bạn)
+$active-gradient: linear-gradient(90deg, #ff8c00, #f7ca18);
+$gold-gradient: linear-gradient(180deg, #F0D040, #C8801A);
+$silver-gradient: linear-gradient(180deg, #FFFFFF, #B0B0B0);
+$bg-dark: #000;
+$gold-color: #F0D040;
+$primary-color: #ffffff;
+$secondary-text: #b0b0b0; // <--- THÊM DÒNG NÀY
+.home-container {
+    // Phần nền đã làm đúng
+    background-image: url('../../assets/images/backgroud-home.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    mask-image: linear-gradient( to bottom, black 70%, // 70% trên cùng: Hiển thị 100%
+    transparent 100% // 30% dưới cùng: Phai dần sang trong suốt
+    );
+    -webkit-mask-image: linear-gradient( to bottom, white 70%, transparent 100% );
+
+    .home-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; // Đảm bảo nó chiếm toàn bộ chiều cao
+        text-align: center;
+        padding-top: 80px; // Bù lại cho margin-top (để logo không bị cắt)
+
+        &_name {
+            // Xóa các style chung ở đây
+            margin-bottom: 30px; // Tạo khoảng cách với button
+            // Style cho "Shadow Warriors:"
+            animation: fadeInTitle 1.5s ease-out 0.5s; // Tên, thời gian, hiệu ứng, độ trễ
+            animation-fill-mode: backwards; // Giữ trạng thái 'from' trước khi chạy
+            div {
+                font-size: clamp(2rem,2vw,2.9rem);
+                color: transparent;
+                font-weight: 600;
+                display: block;
+                background-image: $silver-gradient;
+                -webkit-background-clip: text;
+                background-clip: text;
+                text-align: center;
+                font-family: 'Quantify', sans-serif;
+                position: relative;
+                // (Để text (với background-clip) nằm trên vầng sáng)
+                z-index: 1;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    z-index: -1;
+                    background-image: url('../../assets/images/before-text.png');
+                    // --- THAY ĐỔI Ở ĐÂY ---
+                    // "contain" sẽ co ảnh lại (50px x 50px)
+                    // "100% 100%" sẽ KÉO DÃN ảnh ra để lấp đầy box (200% width x 50px height)
+                    background-size: 100% 100%;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    // Kích thước của vệt sáng
+                    width: 90%;
+                    height: 50px; // Bạn có thể tăng/giảm số này
+
+                    left: 50%;
+                    top: 55%;
+                    transform: translateX(-50%);
+                    filter: drop-shadow(0 0 8px rgba(255, 255, 220, 0.9)) // Lớp glow 1 (sáng, gần)
+                    drop-shadow(0 0 15px rgba(255, 255, 220, 0.7));
+                }
+            }
+            // Style cho "MONSTER SLAYER"
+            h2 {
+                font-family: 'Quantify', sans-serif;
+                font-weight: 700;
+                font-size: clamp(3.0rem,2vw,4.5rem);
+                text-transform: uppercase;
+                color: transparent;
+                background-image: $gold-gradient;
+                -webkit-background-clip: text;
+                background-clip: text;
+            }
+        }
+        // Style cho button "DOWNLOAD NOW"
+    }
+}
+
+.download-button {
+    // 1. Vị trí & Font (Giữ nguyên)
+    position: relative;
+    animation: fadeInTitle 1.5s ease-out 0.5s; // Tên, thời gian, hiệu ứng, độ trễ
+    animation-fill-mode: backwards; // Giữ trạng thái 'from' trước khi chạy
+    z-index: 1;
+    border: none;
+    cursor: pointer;
+    padding: 15px 40px;
+    // 2. Text (Giữ nguyên)
+    font-family: 'Beaufort for LOL', sans-serif !important;
+    font-weight: 600;
+    font-size: clamp(0.9rem,2vw,1.1rem);
+    text-transform: uppercase;
+    color: #f0e6d8;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    // 3. LỚP VIỀN NGOÀI (Giữ nguyên)
+    background: linear-gradient(180deg, #4d2a2a, #E86234);
+    clip-path: polygon(26% -165%, 88% -14%, 92% 18%, 71% 247%, 17% 132%, 6% 86%);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    // 5. LỚP NỀN (Dùng ::before)
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        background: linear-gradient( 180deg, #4f231a, // "Ở trên đậm"
+        rgba(232, 98, 52, 0) // "Ở dưới sáng dần" (phai sang trong suốt)
+        );
+        // Căn lề (Giữ nguyên)
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 4px;
+        // 6. HÌNH DẠNG NỀN (*** THAY ĐỔI SANG HÌNH BÌNH HÀNH ***)
+        // Phải cắt y hệt lớp viền
+        clip-path: polygon( 15% 0%, 100% 0%, 85% 100%, 0% 100% );
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        background: rgb(240, 244, 185);
+        width: 16%;
+        height: 2px;
+        top: 3%;
+        left: 42%;
+    }
+    // 7. Hiệu ứng Hover (Giữ nguyên)
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(232, 98, 52, 0.6); // Glow màu #E86234
+    }
+}
+
+.scroll-down-icon {
+    // Vị trí (Giữ nguyên)
+    position: absolute;
+    z-index: 10;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    filter: brightness(1.5);
+    background-image: url('../../assets/images/Next Button.svg');
+    background-size: contain; // Đảm bảo icon vừa vặn
+    background-position: center;
+    background-repeat: no-repeat;
+    // Thêm hiệu ứng nhấp nháy/di chuyển nhẹ
+    animation: bounce 2s infinite ease-in-out;
+    // Xóa ::before vì SVG đã có mũi tên
+
+    &::before {
+        display: none;
+    }
+}
+
+// Thêm hiệu ứng "bounce" (tùy chọn)
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(-10px);
+        opacity: 1;
+    }
+}
+/* --- THÊM MỚI: KEYFRAME CHO TIÊU ĐỀ --- */
+
+@keyframes fadeInTitle {
+    // Hoạt ảnh bắt đầu
+    from {
+        opacity: 0; // Ẩn hoàn toàn
+        transform: translateY(30px); // Dịch chuyển xuống dưới 30px
+    }
+    // Hoạt ảnh kết thúc
+    to {
+        opacity: 1; // Hiện ra
+        transform: translateY(0); // Về vị trí ban đầu
+    }
+}
+
+.home-container1 {
+    width: 100%;
+    background: $bg-dark;
+    color: $primary-color;
+    // --- THAY ĐỔI Ở ĐÂY ---
+    // 1. Đặt chiều cao tối thiểu bằng 100% chiều cao màn hình
+    min-height: 100vh;
+    // 2. Dùng flexbox để căn giữa nội dung (home-section1)
+    //    theo cả chiều dọc và chiều ngang
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // 3. Giữ padding ngang, padding dọc có thể bỏ nếu dùng flex
+    padding: 60px; // Padding cho 4 cạnh
+    mask-image: linear-gradient( to bottom, black 70%, // 70% trên cùng: Hiển thị 100%
+    transparent 100% // 30% dưới cùng: Phai dần sang trong suốt
+    );
+    -webkit-mask-image: linear-gradient( to bottom, white 70%, transparent 100% );
+}
+
+.home-section1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    // Giới hạn chiều rộng và căn giữa
+    max-width: 1400px;
+    width: 100%; // Đảm bảo nó chiếm 100% chiều rộng của container
+    margin: 0 auto;
+}
+
+/* --- 1. CỘT BÊN TRÁI (NỘI DUNG) --- */
+.home-section_content {
+    flex: 1.5; // Cho cột text chiếm nhiều không gian hơn
+    display: flex;
+    flex-direction: column;
+    gap: 25px; // Khoảng cách giữa các phần tử text
+
+    h2 {
+        // Style cho "Shadow Warriors: MONSTER SLAYER"
+        font-family: 'Quantify', sans-serif;
+        font-weight: 700;
+        font-size: clamp(1.5rem,2vw,2.8rem);
+        color: $primary-color;
+        line-height: 1.3;
+        text-transform: uppercase;
+    }
+
+    h4 {
+        // Style cho "FIGHT, EXPLORE..."
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-weight: 700;
+        font-size: clamp(0.8rem,2vw,1rem);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        // Màu vàng-chanh sáng
+        color: #BFFF00;
+    }
+
+    span {
+        // Style cho đoạn văn
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: clamp(0.8rem,2vw,1rem);
+        color: $secondary-text; // Màu xám nhạt
+        line-height: 1.7;
+        max-width: 600px; // Giới hạn chiều rộng của text
+    }
+}
+
+/* --- 2. CỘT BÊN PHẢI (HÌNH ẢNH) --- */
+.home-section_images {
+    flex: 1;
+    position: relative; // Đã có, giữ nguyên
+    // Style cho phần text "SW: Monster Slayer..." (Giữ nguyên)
+    span {
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: right;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $secondary-text;
+        z-index: 3; // Nằm trên cùng
+
+        p {
+            margin: 0;
+            color: $primary-color;
+            font-size: 0.8rem;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: $active-gradient;
+            margin-top: 10px;
+            margin-left: auto;
+        }
+    }
+
+    img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        display: block;
+        margin-top: 60px;
+        // Đảm bảo ảnh nằm trên vầng sáng
+        position: relative;
+        z-index: 2;
+        transform: scaleX(-1);
+        // --- XÓA KHỐI &::after RA KHỎI ĐÂY ---
+    }
+    // --- VÀ DÁN VÀO ĐÂY (LÀM CON CỦA .home-section_images) ---
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -79%;
+        left: 24%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        background: linear-gradient(136deg, rgba(232, 98, 52, 0) 20%, rgba(232, 98, 52, 0.8) 50%, rgba(232, 98, 52, 0) 80%);
+        /* clip-path: polygon(51% 3%, 96% 4%, 99% 37%, 95% 67%, 79% 83%, 50% 92%, 11% 100%, 2% 74%, 6% 40%, 24% 13%); */
+        filter: blur(190px);
+    }
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// css content2
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+/* --- BẮT ĐẦU STYLE SECTION "YOUR ADVENTURE" --- */
+
+// (Giả định bạn đã import file _variables.scss ở đầu file này)
+// @import '../../styles/variables';
+
+.content-home2 {
+    // 1. Nền: Dùng lại ảnh nền "temple" mờ
+    // (Giống hệt .home-container của bạn)
+    background-image: url('../../assets/images/background-content2.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    // 2. Kích thước: Full màn hình
+    min-height: 100vh;
+    // 3. Căn giữa: Dùng flexbox để căn .content-home2_section vào giữa
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // 4. Padding
+    padding: 60px;
+    mask-image: linear-gradient( to bottom, black 70%, // 70% trên cùng: Hiển thị 100%
+    transparent 100% // 30% dưới cùng: Phai dần sang trong suốt
+    );
+    -webkit-mask-image: linear-gradient( to bottom, white 70%, transparent 100% );
+}
+
+.content-home2_section {
+    // Container 2 cột
+    display: flex;
+    align-items: center; // Căn dọc 2 cột
+    gap: 60px; // Khoảng cách giữa 2 cột
+
+    max-width: 1400px; // Giới hạn chiều rộng
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* --- 1. CỘT BÊN TRÁI (GIF) --- */
+.content-home2_section-gif {
+    flex: 1.2; // Cho GIF chiếm nhiều không gian hơn (60%)
+
+    img {
+        width: 100%;
+        display: block;
+        border-radius: 10px; // Bo góc cho GIF
+        // Thêm bóng đổ cho đẹp
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* --- 2. CỘT BÊN PHẢI (THÔNG TIN) --- */
+.content-home2_section-info {
+    /*    flex: 1; // Cho text chiếm ít không gian hơn (40%)
+*/ display: flex;
+    flex-direction: column;
+    text-align: right;
+
+    h2 {
+        // "YOUR ADVENTURE"
+        font-family: 'Roboto', sans-serif; // Dùng lại font Quantify font-size: 2.8rem;
+        font-weight: 600;
+        font-size: clamp(1.5rem,2vw,2.5rem);
+        color: $primary-color; // Màu trắng
+        text-transform: uppercase;
+        margin-bottom: 15px; // Khoảng cách
+    }
+
+    p {
+        // "CREATIVITY IS YOUR..."
+        font-family: -apple-system, sans-serif;
+        font-size: clamp(0.7rem,2vw,1rem);
+        font-weight: 600;
+        color: $primary-color; // Màu trắng
+        text-transform: uppercase;
+        letter-spacing: 1.5px; // Giãn cách chữ
+        margin-bottom: 30px; // Khoảng cách
+        text-align: right;
+    }
+
+    span {
+        // "Lorem ipsum..."
+        font-family: -apple-system, sans-serif;
+        font-size: clamp(0.7rem,2vw,1rem);
+        color: $secondary-text; // Màu xám nhạt (từ file biến)
+        line-height: 1.7; // Giãn dòng
+        max-width: 500px; // Giới hạn chiều rộng text
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//css content 3
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+.news-events-container {
+    background: rgba(18, 18, 18, 1);
+    min-height: 100vh;
+    padding: 140px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Căn giữa tiêu đề
+    width: 100%;
+}
+
+.section-title {
+    // "NEWS - EVENTS"
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(2rem,2vw,2.8rem);
+    font-weight: 700;
+    color: rgba(240, 244, 185, 1); // Màu vàng
+    text-align: center;
+    margin-bottom: 60px;
+    text-shadow: 0 0 15px rgba(240, 210, 64, 0.4); // Glow vàng
+}
+
+.news-events-layout {
+    display: flex;
+    gap: 50px;
+    width: 100%;
+    max-width: 1400px; // Giới hạn chiều rộng
+    margin: 0 auto;
+}
+
+/* --- 1. Sidebar --- */
+.news-sidebar {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .sidebar-tab {
+        // Xoay chữ dọc
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font-family: 'Roboto', sans-serif;
+        font-size: clamp(1rem,2vw,1.5rem);
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: $secondary-text; // Màu xám
+        border-left: 1px solid white;
+        padding: 41px 4px;
+        -moz-border-radius-bottomleft: 8px;
+        cursor: pointer;
+        transition: all 0.8s ease;
+        // Căn chữ "EVENTS" "NEWS"
+        span {
+            display: block;
+            text-align: center;
+        }
+        // Tab "NEWS" hoặc "EVENTS" đang active
+        &.active {
+            color: $primary-color; // Màu trắng
+            background: linear-gradient(90deg, rgb(255, 212, 177) -26%, rgb(232, 98, 52) 39%);
+        }
+
+        &:hover:not(.active) {
+            color: $primary-color;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+/* --- 2. Nội dung tin tức --- */
+.news-content {
+    flex: 1; // Chiếm hết không gian còn lại
+    display: grid;
+    // Chia 2 cột
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    // Nếu chỉ có 1 item (ví dụ: tab Events)
+    // Nó sẽ không bị kéo dãn ra
+    align-content: start;
+}
+
+/* --- 3. Thẻ tin tức --- */
+.news-card {
+    // 1. Lớp viền ngoài (dùng gradient)
+    background: linear-gradient(180deg, #6a3a1a, #E86234); // Gradient viền
+    padding: 3px; // Độ dày của viền
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(232, 98, 52, 0.3); // Glow cam
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 20;
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -141%;
+        left: 51%;
+        transform: translateX(-50%);
+        width: 57%;
+        height: 108vh;
+        z-index: -1;
+        background: radial-gradient(ellipse at center, rgba(232, 98, 52, 0) 20%, #CED0AA 50%, rgba(232, 98, 52, 0) 80%);
+        filter: blur(190px);
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+    // 2. Lớp nền trong (màu tối)
+    .card-inner {
+        background: #1e1e1e; // Nền tối
+        border-radius: 8px; // Bo góc bên trong
+        overflow: hidden; // Ẩn phần thừa của ảnh
+        height: 100%; // Đảm bảo các thẻ cao bằng nhau
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-image {
+        width: 100%;
+        height: auto; // Giữ tỷ lệ ảnh
+        display: block;
+        border-bottom: 2px solid #E86234; // Viền cam dưới ảnh
+    }
+
+    .card-body {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px; // Khoảng cách giữa ngày và text
+        flex: 1; // Đẩy nội dung xuống
+    }
+
+    .card-date {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        color: $gold-color; // Màu vàng
+        font-size: 0.9rem;
+    }
+
+    .card-description {
+        font-family: -apple-system, sans-serif;
+        color: $secondary-text; // Màu xám
+        line-height: 1.6;
+        font-size: 0.9rem;
+    }
+}
+
+/* --- 4. Icon trang trí (bên phải) --- */
+.decoration-icon {
+    width: 150px;
+    height: 60px;
+    position: relative;
+
+    img {
+        width: 100%;
+        height: 100%;
+        top: 150px;
+        object-fit: contain;
+        position: absolute;
+        opacity: 0.8;
+        transform: rotate(270deg);
+        transition: transform 0.3s ease;
+        &:hover {
+            opacity: 1;
+                transform: translateY(-5px);
+            
+        }
+    }
+}
+.banner {
+    position: absolute;
+    bottom: 10px;
+    left: 40px;
+    color: white;
+    opacity: 0.3;
+    font-weight: 500;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//css content 4
+
+
+.character-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    color: $primary-color; // Chữ trắng
+
+}
+
+.character-background {
+    position: absolute;
+    top: -194px;
+    left: 76px;
+    width: 64%;
+    height: 162%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center 42%;
+    transition: background-image 0.6s ease-in-out;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: inherit; // Lấy y hệt ảnh nền
+        filter: brightness(0) opacity(0.3) blur(5px);
+        transform: scale(1.05); // Phóng to bóng
+    }
+}
+
+.character-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #E86234;
+    z-index: 1;
+    filter: brightness(1) opacity(0.8) blur(9px);
+   
+}
+
+.character-content-wrapper {
+    flex: 1; // Chiếm hết không gian còn lại (bên trái)
+    z-index: 2; // Nằm trên lớp overlay
+    padding: 4% 0%;
+}
+
+.character-content {
+    margin-top: 40px;
+    position: relative;
+    padding-left: 10%;
+
+
+    .main-title {
+        font-family: 'Serif'; // (Hoặc font chữ serif của bạn)
+        font-size: clamp(2.5rem,2vw,4rem);
+        font-weight: 700;
+        color: $primary-color;
+    }
+
+    .hero-info {
+        margin-top: 30px;
+        position: relative;
+    }
+
+    .hero-name-tag {
+        display: inline-block;
+        background: #000;
+        color: $primary-color;
+        padding: 5px 15px;
+        font-family: 'Quantify', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: clamp(1rem,2vw,1.6rem);
+        position: relative;
+        z-index: 1000 !important;
+        // Cái gạch đen bên dưới
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 100%;
+            height: 2px;
+            background: #000;
+        }
+    }
+
+    .hero-name-large {
+        font-family: "Serif";
+        font-size: clamp(4rem,2vw,6rem);
+        color: #000;
+        text-transform: uppercase;
+        position: absolute;
+        top: 40%;
+        right: 15%;
+        z-index: -1;
+        opacity: 0.9;
+        letter-spacing: 5px;
+    }
+
+    .hero-description {
+        font-family: -apple-system, sans-serif;
+        font-size: clamp(0.8rem,2vw,1rem);
+        color: $primary-color;
+        line-height: 1.7;
+        max-width: 500px;
+        margin-top: 40px;
+        z-index: 1000 !important;
+    }
+}
+
+/* --- PHẦN CHỌN ANH HÙNG (BÊN DƯỚI) --- */
+.character-selector {
+    
+
+    .selector-card {
+        cursor: pointer;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease;
+
+
+        .selector-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            // 1. Thêm các thuộc tính căn chỉnh
+            background-image: url('../../assets/images/Selected Square.png');
+            background-size: contain; // Co dãn ảnh để vừa vặn
+            background-position: center; // Căn ảnh ra giữa
+            background-repeat: no-repeat; // Không lặp lại
+
+            opacity: 0; // Ẩn đi
+            transition: opacity 0.3s ease;
+        }
+        // Nền đen
+        .selector-bg {
+            width: 50%;
+            height: 100%;
+            background: #000;
+            transform: rotate(45deg);
+            overflow: hidden;
+            border: 5px solid black;
+            /**/
+
+           
+
+        }
+
+        &:hover {
+            transform: scale(1.1);
+           
+        }
+
+
+        &.active {
+            .selector-frame {
+                opacity: 1; // Hiện khung trắng
+            }
+
+
+         
+            .selector-bg {
+                border: 5px solid white;
+                /**/ background: repeating-linear-gradient(135deg, #E86234, #E86234 10px, #FCA311 12px, #FCA311 10px);
+                box-shadow:
+                /* Để tạo glow trắng ở border (như yêu cầu trước) */
+                0 0 15px white,
+                /* Thêm một box-shadow khác để tạo hiệu ứng mờ xung quanh */
+                0 0 50px 20px rgba(255, 255, 255, 0.5);
+                position: relative;
+
+                img {
+                    filter: none; // Bỏ grayscale
+                }
+            }
+        }
+    }
+}
+
+.hero-gif-wrapper {
+    transform: scaleX(-1);
+    position: relative;
+    width: 100vw;
+    height: 60vh;
+   
+
+
+    .gif-hero1 {
+        position: absolute;
+        width: 69%;
+        height: auto;
+        /* position: relative; */
+        bottom: -40%;
+        right: 16%;
+        mask-image: linear-gradient( to bottom, black 70%, // 70% trên cùng: Hiển thị 100%
+        transparent 100% // 30% dưới cùng: Phai dần sang trong suốt
+        );
+        -webkit-mask-image: linear-gradient(to bottom, white 54%, transparent 85%);
+    }
+
+    .gif-hero2 {
+        position: absolute;
+        width: 73%;
+        height: auto;
+        /* position: relative; */
+        bottom: -40%;
+        right: 18%;
+        mask-image: linear-gradient( to bottom, black 70%, // 70% trên cùng: Hiển thị 100%
+        transparent 100% // 30% dưới cùng: Phai dần sang trong suốt
+        );
+        -webkit-mask-image: linear-gradient(to bottom, white 54%, transparent 85%);
+    }
+
+    .gif-hero3 {
+        position: absolute;
+        width: 65%;
+        height: auto;
+        /* position: relative; */
+        bottom: -48%;
+        right: 13%;
+        mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, white 54%, transparent 85%);
+    }
+
+    .gif-hero4 {
+        position: absolute;
+        width: 78%;
+        height: auto;
+        /* position: relative; */
+        bottom: -40%;
+        right: 6%;
+        mask-image: linear-gradient( to bottom, black 70%, // 70% trên cùng: Hiển thị 100%
+        transparent 100% // 30% dưới cùng: Phai dần sang trong suốt
+        );
+        -webkit-mask-image: linear-gradient(to bottom, white 54%, transparent 85%);
+    }
+
+    .gif-hero5 {
+        position: absolute;
+        width: 59%;
+        height: auto;
+        /* position: relative; */
+        bottom: -47%;
+        right: 10%;
+        mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, white 54%, transparent 85%);
+    }
+
+    .gif-hero6 {
+        position: absolute;
+        width: 77%;
+        height: auto;
+        /* position: relative; */
+        bottom: -40%;
+        right: 6%;
+        mask-image: linear-gradient( to bottom, black 70%, // 70% trên cùng: Hiển thị 100%
+        transparent 100% // 30% dưới cùng: Phai dần sang trong suốt
+        );
+        -webkit-mask-image: linear-gradient(to bottom, white 54%, transparent 85%);
+    }
+}
+@media(max-width:1200px) {
+    .content-home2_section{
+        gap:0;
+        display:block;
+    }
+    .content-home2_section-info {
+        margin-top:20px;
+        display: block;
+        text-align: left !important;
+
+        p {
+            text-align: left !important;
+        }
+    }
+}
+@media(max-width:743px){
+    .home-section1{
+        display:block;
+    }
+    .news-content {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .decoration-icon{
+        display:none;
+    }
+}
+@media(max-width:920px){
+    .news-events-layout {
+        display: block;
+
+        .news-sidebar {
+            width: 100%;
+            margin-bottom: 50px;
+            flex-direction: row;
+            justify-content: center;
+
+            .sidebar-tab {
+                writing-mode: inherit;
+                padding: 1% 20%;
+                transform: rotate(0deg);
+                border-left:none;
+                border-bottom:1px solid white;
+                z-index:300;
+            }
+        }
+    }
+    .decoration-icon {
+        display: none;
+    }
+}
+
+
+
+
+
+// (Ensure you have imported your variables file, e.g., _variables.scss)
+// @import '../../styles/variables';
+
+.character-selector {
+    width: 100%;
+    display: flex;
+    justify-content: center; // Center the cards horizontally
+    gap: 90px; // Space between cards on desktop
+    padding: 20px;
+    position: absolute; // Positioned at the bottom
+    bottom: 20px;
+    left: 0;
+    z-index: 5; // Ensure it's on top of other elements
+
+    .selector-card {
+        cursor: pointer;
+        position: relative;
+        width: 100px; // Fixed size for the diamond card
+        height: 100px;
+        transition: transform 0.3s ease; // Smooth scaling on hover
+        // Default border (uses Border Decor image, initially dark)
+        .diamond-helper {
+            position: absolute;
+            top: 3px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../../assets/images/Border Decor.png');
+            background-size: 156%;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 3;
+            filter: invert(100%) brightness(0.5);
+            transition: filter 0.3s ease;
+        }
+        // Active frame (uses Selected Square image, hidden by default, glows)
+        .selector-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../../assets/images/Selected Square.png'); // Use your active frame image
+            background-size: contain; // Fit the frame image
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0; // Hidden by default
+            transition: opacity 0.3s ease, filter 0.3s ease; // Smooth fade and glow
+            z-index: 4; // On top when active
+            // Add the glow effect
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)) // Main glow
+            drop-shadow(0 0 5px rgba(255, 255, 255, 1)); // Sharper inner glow
+        }
+        // Rotated background container for the image
+        .selector-bg {
+            width: 100%;
+            height: 100%;
+            overflow: hidden; // Clip the image corners
+            position: relative; // For positioning the image inside
+            z-index: 1; // Base layer
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; // Smooth transitions
+
+
+            img {
+                width: 142%; // Needs to be >100% (sqrt(2)) to fill the rotated square
+                height: 142%;
+                object-fit: cover; // Fill the space, crop if needed
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                // Counter-rotate the image back to normal and center it
+                transform: translate(-50%, -50%) rotate(-45deg);
+                transition: filter 0.3s ease, transform 0.3s ease; // Smooth transitions
+                filter: grayscale(100%); // Default to black and white
+            }
+
+            &:hover {
+                box-shadow: 0 0 15px white, 0 0 50px 20px rgba(255, 255, 255, 0.5);
+                border-color: white; // Change border to white on hover
+                filter: none; // Make border white (removes invert/brightness)
+            }
+        }
+        // Hover effect: Scale up, make default border white
+        &:hover {
+            transform: scale(1.1);
+
+            .diamond-helper {
+                filter: none; // Make border white (removes invert/brightness)
+            }
+            /*
+            .selector-frame {
+                opacity: 1; // Show the glowing active frame
+            }
+*/
+
+            .selector-bg {
+                border-color: white; // Change border to white on hover
+                img {
+                    filter: none;
+                }
+            }
+        }
+        // Active state styles
+        &.active {
+            .selector-frame {
+                opacity: 1; // Show the glowing active frame
+            }
+
+            .diamond-helper {
+                filter: none; // Ensure default border is white when active
+            }
+
+            .selector-bg {
+            }
+        }
+    }
+}
+
+/* --- RESPONSIVE STYLES --- */
+// Breakpoint for tablets and smaller devices
+$mobile-breakpoint: 992px;
+
+@media (max-width: $mobile-breakpoint) {
+    .character-selector {
+        flex-wrap: wrap; // Allow cards to wrap to the next line
+        justify-content: center; // Center the wrapped cards
+        gap: 50px; // Reduce gap between cards
+        position: relative; // Change from absolute to relative for flow
+        bottom: auto; // Reset bottom positioning
+        margin-top: 40px; // Add space above the selector
+        padding-bottom: 40px; // Add space below the selector
+
+        .selector-card {
+            width: 80px; // Make cards smaller on mobile
+            height: 80px;
+        }
+    }
+}
+
+// Optional: Further adjustments for very small screens
+@media (max-width: 480px) {
+    .hero-gif-wrapper .gif-hero4 {
+        bottom: -16%;
+    }
+    .hero-gif-wrapper .gif-hero5{
+        bottom: -20%;
+    }
+    .hero-gif-wrapper .gif-hero1 {
+        bottom: -20%;
+    }
+    .hero-gif-wrapper .gif-hero2 {
+        bottom: -20%;
+    }
+    .hero-gif-wrapper .gif-hero3 {
+        bottom: -20%;
+    }
+    .hero-gif-wrapper .gif-hero6 {
+        bottom: -20%;
+    }
+    .character-selector {
+        gap: 40px; // Even smaller gap
+        .selector-card {
+            width: 65px; // Even smaller cards
+            height: 65px;
+        }
+    }
+}
+@media(max-width:1000px){
+
+}
