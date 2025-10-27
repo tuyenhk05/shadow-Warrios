@@ -75,22 +75,27 @@ function ContentHome3() {
                 
                 {/* 1. Sidebar */}
                 <aside className="news-sidebar">
-                    <FadeInWhenVisible direction="slideFromLeft">
                     <div
                         // Class 'active' được thêm tự động
                         className={`sidebar-tab ${activeTab === 'events' ? 'active' : ''}`}
                         // Thêm onClick để chuyển tab
                         onClick={() => setActiveTab('events')}
-                    >
-                        <span>EVENTS</span>
+                    >                    <FadeInWhenVisible direction="slideFromLeft">
+
+                            <span>EVENTS</span>
+                        </FadeInWhenVisible>
+
                     </div>
                     <div
                         className={`sidebar-tab ${activeTab === 'news' ? 'active' : ''}`}
                         onClick={() => setActiveTab('news')}
                     >
-                        <span>NEWS</span>
+                                                <FadeInWhenVisible direction="slideFromLeft">
+
+                            <span>NEWS</span>
+                        </FadeInWhenVisible>
+
                         </div>
-                    </FadeInWhenVisible>
 
                 </aside>
                 <FadeInWhenVisible direction="slideFromLeft">
